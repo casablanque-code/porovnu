@@ -1,0 +1,238 @@
+.section {
+  padding: 16px 24px 0;
+  animation: fadeUp 0.5s 0.2s ease both;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--brown);
+}
+
+.count {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 12px var(--shadow);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow);
+}
+
+.emoji {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.info { flex: 1; min-width: 0; }
+
+.name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.amountBlock { text-align: right; flex-shrink: 0; }
+
+.amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.who {
+  font-size: 12px;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+.whoMe { color: var(--terracotta); }
+.whoThem { color: var(--sage); }
+
+/* Empty state */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  animation: fadeUp 0.5s ease both;
+}
+
+.emptyEmoji { font-size: 48px; margin-bottom: 12px; }
+
+.emptyText {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--brown);
+  margin-bottom: 6px;
+}
+
+.emptySub {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Actions — показываем при наведении */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.18s;
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+.item:hover .actions { opacity: 1; }
+
+.editBtn, .deleteBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.editBtn:hover {
+  background: var(--peach-light);
+  transform: scale(1.1);
+}
+
+.deleteBtn:hover {
+  background: #FFE0E0;
+  transform: scale(1.1);
+}
+
+/* Edit mode */
+.itemEditing {
+  border: 1.5px solid var(--terracotta);
+  box-shadow: 0 4px 20px rgba(201,106,58,0.15) !important;
+}
+
+.editFields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.editInput {
+  background: var(--cream);
+  border: 1.5px solid rgba(92,61,46,0.12);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.editInput:focus { border-color: var(--terracotta); }
+
+.editAmount {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  width: 100px;
+}
+
+.editActions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.saveEditBtn, .cancelEditBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.saveEditBtn {
+  background: var(--terracotta);
+  color: white;
+}
+.saveEditBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+.saveEditBtn:not(:disabled):hover { background: var(--brown); }
+
+.cancelEditBtn {
+  background: rgba(92,61,46,0.08);
+  color: var(--text-muted);
+}
+.cancelEditBtn:hover { background: rgba(92,61,46,0.15); }
+
+.comment {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.recurringBadge {
+  font-size: 11px;
+  margin-left: 6px;
+  opacity: 0.7;
+}

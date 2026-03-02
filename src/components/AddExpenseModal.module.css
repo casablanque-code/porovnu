@@ -1,0 +1,229 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(61,43,31,0.5);
+  z-index: 200;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal {
+  background: #FFF9F2;
+  border-radius: 28px 28px 0 0;
+  padding: 20px 24px 40px;
+  width: 100%;
+  max-width: 480px;
+  animation: slideUp 0.3s ease;
+}
+
+.handle {
+  width: 36px;
+  height: 4px;
+  background: rgba(92,61,46,0.15);
+  border-radius: 50px;
+  margin: 0 auto 20px;
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--brown);
+  margin-bottom: 20px;
+}
+
+.inputGroup {
+  margin-bottom: 16px;
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  background: var(--cream);
+  border: 1.5px solid rgba(92,61,46,0.12);
+  border-radius: 14px;
+  padding: 13px 16px;
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus { border-color: var(--terracotta); }
+
+.amountInput {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: -1px;
+  padding: 14px 16px;
+}
+
+.catGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.catBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--cream);
+  border: 1.5px solid transparent;
+  border-radius: 50px;
+  padding: 7px 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brown-light);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.catBtn:hover {
+  border-color: rgba(201,106,58,0.3);
+  transform: translateY(-1px);
+}
+
+.catSel {
+  background: var(--peach-light);
+  border-color: var(--terracotta);
+  color: var(--terracotta);
+}
+
+.catEmoji { font-size: 15px; }
+.catLabel { font-size: 12px; }
+
+.whoToggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.whoBtn {
+  padding: 12px;
+  border-radius: 14px;
+  border: 2px solid rgba(92,61,46,0.12);
+  background: var(--cream);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brown-light);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.whoSel {
+  background: var(--peach-light);
+  border-color: var(--terracotta);
+  color: var(--terracotta);
+}
+
+.saveBtn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--terracotta), var(--peach));
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 20px;
+  box-shadow: 0 6px 20px rgba(201,106,58,0.4);
+  transition: all 0.2s;
+}
+
+.saveBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 26px rgba(201,106,58,0.5);
+}
+
+.saveBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Comment */
+.optional { font-weight: 400; color: var(--text-muted); font-size: 11px; margin-left: 4px; text-transform: none; letter-spacing: 0; }
+
+/* Recurring */
+.recurringToggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--terracotta);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.recurringLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brown);
+}
+
+.dayPicker {
+  margin-top: 12px;
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 12px;
+  animation: fadeUp 0.2s ease both;
+}
+
+.dayPickerLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.dayGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.dayBtn {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  border: 1.5px solid transparent;
+  background: var(--card);
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brown-light);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dayBtn:hover { border-color: rgba(201,106,58,0.3); }
+.daySel { background: var(--terracotta); color: white; border-color: var(--terracotta); }

@@ -1,0 +1,110 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #FAF6F0;
+  --warm-white: #FFF9F2;
+  --peach: #F2A97E;
+  --peach-light: #FDDEC8;
+  --terracotta: #C96A3A;
+  --brown: #5C3D2E;
+  --brown-light: #8B6355;
+  --sage: #8BA888;
+  --sage-light: #C8DBC6;
+  --text: #3D2B1F;
+  --text-muted: #9B7B6E;
+  --card: #FFFCF8;
+  --shadow: rgba(92,61,46,0.10);
+}
+
+body {
+  background: var(--cream);
+  font-family: 'Nunito', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 20%, #F5E6D8 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, #E8D5C4 0%, transparent 50%),
+    radial-gradient(circle at 60% 20%, #FDE8D5 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+button { cursor: pointer; font-family: 'Nunito', sans-serif; }
+input { font-family: 'Nunito', sans-serif; }
+a { text-decoration: none; color: inherit; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* === Мобильная адаптация === */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Без горизонтального скролла */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Safe area для iPhone (чёлка и Home bar) */
+.app, [class*="page"] {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* FAB не перекрывается Home bar на iPhone */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .fab {
+    bottom: calc(24px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Модалка на мобиле — полный экран снизу */
+@media (max-width: 560px) {
+  [class*="overlay"] {
+    align-items: flex-end;
+  }
+  [class*="modal"] {
+    border-radius: 24px 24px 0 0;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  [class*="wrapper"] {
+    padding: 0;
+  }
+  /* Боковые подсказки скрыты на мобиле */
+  [class*="side"] {
+    display: none !important;
+  }
+}
+
+/* Плавный скролл везде */
+* {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}

@@ -1,0 +1,182 @@
+.wrap {
+  padding: 20px 24px 0;
+  animation: fadeUp 0.5s 0.05s ease both;
+}
+
+.card {
+  background: linear-gradient(135deg, #C96A3A 0%, #E07B4A 50%, #F2A97E 100%);
+  border-radius: 28px;
+  padding: 28px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(201,106,58,0.35);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  pointer-events: none;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -30px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  pointer-events: none;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 600;
+  margin: 6px 0 4px;
+  letter-spacing: -1px;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.sub {
+  font-size: 14px;
+  opacity: 0.8;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+}
+
+.sub strong { font-weight: 700; }
+
+.splitRow {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.splitItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.splitDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.settleBtn {
+  margin-top: 18px;
+  background: rgba(255,255,255,0.22);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
+}
+
+.settleBtn:hover {
+  background: rgba(255,255,255,0.32);
+  transform: translateY(-1px);
+}
+
+/* SBP panel */
+.sbpPanel {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 18px;
+  margin-top: 10px;
+  box-shadow: 0 4px 20px var(--shadow);
+  animation: fadeUp 0.25s ease both;
+}
+
+.sbpTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--brown);
+  margin-bottom: 12px;
+}
+
+.phoneRow { margin-bottom: 12px; }
+
+.phoneInput {
+  width: 100%;
+  background: var(--cream);
+  border: 1.5px solid rgba(92,61,46,0.12);
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.phoneInput:focus { border-color: var(--terracotta); }
+
+.sbpBanks {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.bankBtn {
+  flex: 1;
+  background: var(--peach-light);
+  color: var(--terracotta);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.bankBtn:hover {
+  background: var(--terracotta);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.copyBtn {
+  width: 100%;
+  background: none;
+  border: 1.5px solid rgba(92,61,46,0.15);
+  border-radius: 10px;
+  padding: 9px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.copyBtn:hover { border-color: var(--terracotta); color: var(--terracotta); }

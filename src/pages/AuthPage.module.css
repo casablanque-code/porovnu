@@ -1,0 +1,178 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 28px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 8px 40px var(--shadow);
+  animation: fadeUp 0.5s ease both;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--terracotta);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input {
+  background: var(--cream);
+  border: 1.5px solid rgba(92,61,46,0.12);
+  border-radius: 14px;
+  padding: 13px 16px;
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.input:focus {
+  border-color: var(--terracotta);
+}
+
+.error {
+  background: #FEE8E0;
+  color: var(--terracotta);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.btn {
+  background: linear-gradient(135deg, var(--terracotta), var(--peach));
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 4px;
+  box-shadow: 0 6px 20px rgba(201,106,58,0.4);
+  transition: all 0.2s;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 26px rgba(201,106,58,0.5);
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.link {
+  color: var(--terracotta);
+  font-weight: 700;
+}
+
+/* Gender selector */
+.genderRow {
+  display: flex;
+  gap: 8px;
+}
+
+.genderBtn {
+  flex: 1;
+  padding: 10px 8px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(92,61,46,0.12);
+  background: var(--cream);
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brown-light);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.genderBtn:hover {
+  border-color: rgba(201,106,58,0.3);
+}
+
+.genderSel {
+  background: var(--peach-light);
+  border-color: var(--terracotta);
+  color: var(--terracotta);
+}
+
+/* Check email screen */
+.successEmoji {
+  font-size: 52px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.successText {
+  font-size: 15px;
+  color: var(--brown);
+  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.successSub {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.successHint {
+  background: var(--peach-light);
+  color: var(--terracotta);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+}

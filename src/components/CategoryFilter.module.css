@@ -1,0 +1,215 @@
+.wrap {
+  padding: 16px 24px 4px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  background: var(--card);
+  border: 1.5px solid transparent;
+  border-radius: 50px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brown-light);
+  box-shadow: 0 2px 8px var(--shadow);
+  white-space: nowrap;
+  transition: all 0.18s;
+  flex-shrink: 0;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+}
+
+.pill:hover {
+  border-color: rgba(201,106,58,0.3);
+  transform: translateY(-1px);
+}
+
+.active {
+  background: var(--terracotta);
+  color: white;
+  border-color: var(--terracotta);
+  box-shadow: 0 4px 14px rgba(201,106,58,0.4);
+}
+
+.addBtn {
+  background: var(--cream);
+  border: 1.5px dashed rgba(201,106,58,0.35);
+  color: var(--terracotta);
+  box-shadow: none;
+}
+
+.addBtn:hover {
+  background: var(--peach-light);
+  border-color: var(--terracotta);
+  border-style: solid;
+}
+
+/* Add panel */
+.addPanel {
+  margin-top: 12px;
+  background: var(--card);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 4px 20px var(--shadow);
+  animation: fadeUp 0.2s ease both;
+}
+
+.addHint {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chosenEmoji { font-size: 20px; }
+
+.emojiGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.emojiBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background: var(--cream);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.emojiBtn:hover { background: var(--peach-light); transform: scale(1.1); }
+
+.emojiSel {
+  background: var(--peach-light);
+  border-color: var(--terracotta);
+  transform: scale(1.1);
+}
+
+.nextBtn {
+  background: linear-gradient(135deg, var(--terracotta), var(--peach));
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 9px 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: block;
+}
+
+.nextBtn:hover { transform: translateY(-1px); }
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.input {
+  flex: 1;
+  background: var(--cream);
+  border: 1.5px solid rgba(92,61,46,0.12);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus { border-color: var(--terracotta); }
+
+.confirmBtn, .backBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.confirmBtn {
+  background: var(--terracotta);
+  color: white;
+}
+.confirmBtn:disabled { background: rgba(201,106,58,0.3); cursor: not-allowed; }
+.confirmBtn:not(:disabled):hover { background: var(--brown); }
+
+.backBtn {
+  background: rgba(92,61,46,0.08);
+  color: var(--text-muted);
+}
+.backBtn:hover { background: rgba(92,61,46,0.15); }
+
+.cancelLink {
+  background: none;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-top: 8px;
+  display: block;
+  text-align: center;
+  opacity: 0.7;
+}
+.cancelLink:hover { opacity: 1; }
+
+.nextBtn2 {
+  background: linear-gradient(135deg, var(--terracotta), var(--peach));
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 9px 16px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.nextBtn2:disabled { opacity: 0.4; cursor: not-allowed; }
+.nextBtn2:not(:disabled):hover { transform: translateY(-1px); }
+
+.emojiActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

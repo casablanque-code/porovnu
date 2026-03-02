@@ -1,0 +1,31 @@
+.vercel
+# Зависимости (самое тяжелое, их скачивают через npm install)
+node_modules/
+.pnp
+.pnp.js
+
+# Сборка Next.js
+.next/
+out/
+build/
+
+# СЕКРЕТЫ (САМОЕ ВАЖНОЕ!)
+# Никогда не пушь ключи Supabase и пароли от БД
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Логи
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Системный мусор
+.DS_Store
+Thumbs.db
+
+# Настройки VS Code (опционально, если работаешь один)
+.vscode/
