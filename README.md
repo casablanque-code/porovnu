@@ -1,6 +1,22 @@
 # Поровну 🧡
 
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+
 Совместный бюджет для пар и соседей.
+
+## 🛠 Стек технологий
+- **Frontend:** React + Vite (Fast & Modern)
+- **Backend-as-a-Service:** Supabase (PostgreSQL, Auth, Realtime)
+- **Styling:** CSS Modules (изолированные стили)
+- **Deployment:** Vercel (Frontend) -> Скоро переход на Docker + VPS
+- **PWA:** Поддержка установки на мобильные устройства
+
+## 🔐 Безопасность
+- **Row Level Security (RLS):** Доступ к данным строго разграничен на уровне базы данных. Пользователи видят только свои транзакции или транзакции своего партнера.
+- **Email Confirmation:** Регистрация только через подтверждение почты.
+
 
 ## Быстрый старт
 
