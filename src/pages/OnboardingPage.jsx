@@ -33,7 +33,6 @@ export default function OnboardingPage() {
   const [slide, setSlide] = useState(0)
   const navigate = useNavigate()
   const isLast = slide === SLIDES.length - 1
-  const s = SLIDES[slide]
 
   return (
     <div className={styles.page}>
@@ -46,43 +45,51 @@ export default function OnboardingPage() {
           </button>
         )}
 
-        {/* Slide content */}
-        <div className={styles.slideWrap}>
-          <div className={styles.emoji} key={slide}>{s.emoji}</div>
-          <h1 className={styles.title}>{s.title}</h1>
-          <p className={styles.sub}>{s.sub}</p>
-          {s.hint && <div className={styles.hint}>✨ {s.hint}</div>}
+        {/* Все слайды рендерятся сразу, показывается только активный */}
+        <div className={styles.slideContainer}>
+          {SLIDES.map((s, i) => (
+            <div
+              key={i}
+              className={`${styles.slide} ${i === slide ? styles.slideActive : styles.slideHidden}`}
+            >
+              <div className={styles.emoji}>{s.emoji}</div>
+              <h1 className={styles.title}>{s.title}</h1>
+              <p className={styles.sub}>{s.sub}</p>
+              {s.hint && <div className={styles.hint}>✨ {s.hint}</div>}
+            </div>
+          ))}
         </div>
 
         {/* Dots */}
         <div className={styles.dots}>
           {SLIDES.map((_, i) => (
-            <div key={i} className={`${styles.dot} ${i === slide ? styles.dotActive : ''}`}
-              onClick={() => setSlide(i)} />
+            <div
+              key={i}
+              className={`${styles.dot} ${i === slide ? styles.dotActive : ''}`}
+              onClick={() => setSlide(i)}
+            />
           ))}
         </div>
 
-        {/* Actions */}
+        {/* Actions — фиксированная зона, две кнопки всегда зарезервированы */}
         <div className={styles.actions}>
-          {isLast ? (
-            <>
-              <button className={styles.btnPrimary} onClick={() => navigate('/register')}>
-                Создать аккаунт →
-              </button>
-              <button className={styles.btnSecondary} onClick={() => navigate('/login')}>
-                Уже есть аккаунт
-              </button>
-            </>
-          ) : (
-            <button className={styles.btnPrimary} onClick={() => setSlide(s => s + 1)}>
-              Далее →
-            </button>
-          )}
+          <button
+            className={styles.btnPrimary}
+            onClick={() => isLast ? navigate('/register') : setSlide(s => s + 1)}
+          >
+            {isLast ? 'Создать аккаунт →' : 'Далее →'}
+          </button>
+          <button
+            className={`${styles.btnSecondary} ${isLast ? styles.btnSecondaryVisible : styles.btnSecondaryHidden}`}
+            onClick={() => navigate('/login')}
+            tabIndex={isLast ? 0 : -1}
+          >
+            Уже есть аккаунт
+          </button>
         </div>
 
       </div>
 
-      {/* Background blobs */}
       <div className={styles.blob1} />
       <div className={styles.blob2} />
     </div>

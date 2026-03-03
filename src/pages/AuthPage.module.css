@@ -13,7 +13,7 @@
   width: 100%;
   max-width: 380px;
   box-shadow: 0 8px 40px var(--shadow);
-  animation: fadeUp 0.5s ease both;
+  /* анимация убрана — на iOS 18 блокировала тачи на инпуты во время анимации */
 }
 
 .logo {
@@ -57,7 +57,7 @@
   border: 1.5px solid rgba(92,61,46,0.12);
   border-radius: 14px;
   padding: 13px 16px;
-  font-size: 15px;
+  font-size: 16px; /* 16px минимум — иначе iOS зумирует и теряет фокус */
   color: var(--text);
   outline: none;
   transition: border-color 0.2s;

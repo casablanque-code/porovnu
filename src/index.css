@@ -33,12 +33,14 @@ body::before {
     radial-gradient(circle at 80% 80%, #E8D5C4 0%, transparent 50%),
     radial-gradient(circle at 60% 20%, #FDE8D5 0%, transparent 40%);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 
 #root {
   position: relative;
   z-index: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 button { cursor: pointer; font-family: 'Nunito', sans-serif; }
@@ -69,10 +71,19 @@ input, textarea {
 /* === PWA & Mobile === */
 
 /* Нет горизонтального скролла */
-html, body, #root {
-  overflow-x: hidden;
-  width: 100%;
+html {
   height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* iOS — убираем рамки браузера в standalone режиме */
@@ -85,10 +96,10 @@ html, body, #root {
   }
 }
 
-/* Отключаем tap highlight */
+/* Отключаем tap highlight — только highlight, не callout */
 * {
   -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
+  /* -webkit-touch-callout убран — он блокировал клавиатуру на iOS */
 }
 
 /* Плавный скролл на iOS */
@@ -101,4 +112,12 @@ html, body, #root {
   [class*="fab"] {
     bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
   }
+}
+
+/* iOS 18 — гарантируем что инпуты всегда получают тачи */
+input, textarea, select, button {
+  position: relative;
+  z-index: 1;
+  -webkit-user-select: auto !important;
+  user-select: auto !important;
 }

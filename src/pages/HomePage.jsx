@@ -10,6 +10,7 @@ import CategoryFilter from '../components/CategoryFilter'
 import { LeftTips, RightTips } from '../components/SideTips'
 import { useRealtimeExpenses } from '../hooks/useRealtimeExpenses'
 import { useToast } from '../components/Toast'
+import AppLogo from '../components/AppLogo'
 import InsightCards from '../components/InsightCards'
 import styles from './HomePage.module.css'
 
@@ -166,7 +167,8 @@ export default function HomePage() {
   const partnerGender = partner?.gender || 'other'
 
   const now = new Date()
-  const monthName = now.toLocaleString('ru', { month: 'long', year: 'numeric' }).replace(/^./, s => s.toUpperCase())
+  const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
+  const monthName = `${MONTHS[now.getMonth()]} ${now.getFullYear()}`
 
   if (loading) return (
     <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', color:'var(--text-muted)' }}>
@@ -181,10 +183,7 @@ export default function HomePage() {
 
         {/* Header */}
         <div className={styles.header}>
-          <div>
-            <div className={styles.logo}>Поровну</div>
-            <div className={styles.monthLabel}>{monthName}</div>
-          </div>
+          <AppLogo mode={pairMode} monthName={monthName} />
           <div className={styles.headerRight}>
             {pair && (
               <div className={styles.avatarPair}>
