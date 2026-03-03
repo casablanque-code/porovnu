@@ -3,10 +3,11 @@
   "short_name": "Поровну",
   "description": "Общий бюджет для пар и соседей",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#FAF6F0",
   "theme_color": "#C96A3A",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "/icon-192.png",

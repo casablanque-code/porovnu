@@ -10,6 +10,7 @@ import CategoryFilter from '../components/CategoryFilter'
 import { LeftTips, RightTips } from '../components/SideTips'
 import { useRealtimeExpenses } from '../hooks/useRealtimeExpenses'
 import { useToast } from '../components/Toast'
+import InsightCards from '../components/InsightCards'
 import styles from './HomePage.module.css'
 
 export default function HomePage() {
@@ -270,6 +271,14 @@ export default function HomePage() {
               </div>
             )}
 
+            <InsightCards
+              expenses={expenses}
+              userId={user.id}
+              myName={myName}
+              partnerName={partnerName}
+              myGender={myGender}
+            />
+
             {/* Category filter */}
             <CategoryFilter active={activeCategory} onChange={setActiveCategory} pairId={pair?.id} onCategoriesChange={setAllCategories} />
 
@@ -316,6 +325,8 @@ export default function HomePage() {
         myTotal={myTotal}
         theirTotal={theirTotal}
         pairMode={pairMode}
+        expenses={expenses}
+        userId={user.id}
       />
     </div>
   )
