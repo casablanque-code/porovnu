@@ -34,7 +34,7 @@ function TransactionItem({ exp, userId, myName, partnerName, myGender, partnerGe
 
   return (
     <>
-      <div className={styles.item}>
+      <div className={`${styles.item} ${isPaidByMe ? styles.itemMe : styles.itemThem}`}>
         <div className={styles.emoji} style={{ background: color }}>{emoji}</div>
         <div className={styles.info}>
           <div className={styles.name}>{exp.title}</div>

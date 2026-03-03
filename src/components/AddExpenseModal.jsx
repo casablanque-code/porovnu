@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { DEFAULT_CATEGORIES } from './CategoryFilter'
 import styles from './AddExpenseModal.module.css'
 
@@ -10,14 +11,66 @@ export default function AddExpenseModal({ onClose, onSave, myName, partnerName, 
   const [amount, setAmount] = useState(initialValues?.amount || '')
   const [title, setTitle] = useState(initialValues?.title || '')
   const [comment, setComment] = useState(initialValues?.comment || '')
-  const [category, setCategory] = useState(initialValues?.category || cats[0]?.id || 'food')
+  const [category, setCategory] = useState(initialValues?.category || null)
   const [paidBy, setPaidBy] = useState(initialValues?.paidBy || 'me')
   const [isRecurring, setIsRecurring] = useState(false)
   const [recurringDay, setRecurringDay] = useState(1)
   const [saving, setSaving] = useState(false)
+  const [closing, setClosing] = useState(false)
+  const scrollRef = useRef(null)
+
+  // Плавное закрытие — сначала анимация, потом unmount
+  const handleClose = () => {
+    setClosing(true)
+    setTimeout(() => onClose(), 320)
+  }
+
+  // Блокируем скролл основной страницы пока модалка открыта
+  useEffect(() => {
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = prev }
+  }, [])
+
+  // Валидация суммы
+  const handleAmountChange = (e) => {
+    const val = e.target.value.replace(',', '.') // запятую → точку
+    if (/^\d*\.?\d*$/.test(val)) setAmount(val) // только цифры и точка
+  }
+
+  // Свайп вниз для закрытия
+  const [touchStart, setTouchStart] = useState(null)
+  const [dragY, setDragY] = useState(0)
+
+  const handleTouchStart = (e) => {
+    // Блокируем pull-to-refresh браузера
+    setTouchStart(e.touches[0].clientY)
+    setDragY(0)
+  }
+
+  const handleTouchMove = (e) => {
+    if (touchStart === null) return
+    const delta = e.touches[0].clientY - touchStart
+    const scrollTop = scrollRef.current?.scrollTop || 0
+    // Тянем вниз И скролл уже в самом верху — двигаем модалку
+    if (delta > 0 && scrollTop <= 0) {
+      e.preventDefault()
+      setDragY(delta)
+    }
+    // Если скролл не в верху — обычный скролл, не трогаем
+  }
+
+  const handleTouchEnd = () => {
+    if (dragY > 100) {
+      handleClose()
+    } else {
+      setDragY(0)
+    }
+    setTouchStart(null)
+  }
 
   const handleSave = async () => {
-    if (!amount || !title) return
+    if (!amount || !title || !category) return
     setSaving(true)
     await onSave({
       amount: parseFloat(amount), title, comment: comment.trim()||null,
@@ -26,16 +79,27 @@ export default function AddExpenseModal({ onClose, onSave, myName, partnerName, 
     setSaving(false)
   }
 
-  return (
-    <div className={styles.overlay} onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className={styles.modal}>
+  return createPortal(
+    <div className={styles.overlay}
+      onClick={e => e.target === e.currentTarget && handleClose()}
+      style={{ opacity: closing ? 0 : 1, transition: closing ? 'opacity 0.32s ease' : 'none' }}>
+      <div className={styles.modal}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{
+          transform: closing ? 'translateY(100%)' : `translateY(${dragY}px)`,
+          transition: (closing || dragY === 0) ? 'transform 0.32s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+          opacity: closing ? 0 : 1,
+        }}>
         <div className={styles.handle}/>
+        <div className={styles.modalScroll} ref={scrollRef}>
         <div className={styles.title}>{editMode ? 'Редактировать трату' : 'Новая трата'}</div>
 
         <div className={styles.inputGroup}>
           <label className={styles.label}>Сумма, ₽</label>
-          <input className={`${styles.input} ${styles.amountInput}`} type="number"
-            placeholder="0" value={amount} onChange={e=>setAmount(e.target.value)} autoFocus/>
+          <input className={`${styles.input} ${styles.amountInput}`} type="text" inputMode="decimal"
+            placeholder="0" value={amount} onChange={handleAmountChange}/>
         </div>
 
         <div className={styles.inputGroup}>
@@ -45,7 +109,7 @@ export default function AddExpenseModal({ onClose, onSave, myName, partnerName, 
         </div>
 
         <div className={styles.inputGroup}>
-          <label className={styles.label}>Категория</label>
+          <label className={styles.label}>Категория {!category && <span style={{color:"var(--terracotta)",fontWeight:400,fontSize:11,textTransform:"none",letterSpacing:0}}>— выбери</span>}</label>
           <div className={styles.catGrid}>
             {cats.map(cat => (
               <button key={cat.id} className={`${styles.catBtn} ${category===cat.id?styles.catSel:''}`}
@@ -100,10 +164,12 @@ export default function AddExpenseModal({ onClose, onSave, myName, partnerName, 
           )}
         </div>}
 
-        <button className={styles.saveBtn} onClick={handleSave} disabled={!amount||!title||saving}>
+        <button className={styles.saveBtn} onClick={handleSave} disabled={!amount||!title||!category||saving}>
           {saving ? 'Сохраняем...' : editMode ? 'Сохранить изменения ✓' : 'Сохранить трату ✓'}
         </button>
+        </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }

@@ -61,6 +61,11 @@ a { text-decoration: none; color: inherit; }
 }
 
 
+/* Каретка везде терракотовая, не синяя */
+input, textarea {
+  caret-color: #C96A3A;
+}
+
 /* === PWA & Mobile === */
 
 /* Нет горизонтального скролла */
