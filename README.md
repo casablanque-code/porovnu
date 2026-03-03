@@ -3,19 +3,32 @@
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
 
 Совместный бюджет для пар и соседей.
 
-## 🛠 Стек технологий
-- **Frontend:** React + Vite (Fast & Modern)
-- **Backend-as-a-Service:** Supabase (PostgreSQL, Auth, Realtime)
-- **Styling:** CSS Modules (изолированные стили)
-- **Deployment:** Vercel (Frontend) -> Скоро переход на Docker + VPS
-- **PWA:** Поддержка установки на мобильные устройства
+**→ [porovnuapp.vercel.app](https://porovnuapp.vercel.app)**
+
+## Стек
+
+| Слой | Технология |
+|------|-----------|
+| Frontend | React 18 + Vite |
+| Стили | CSS Modules |
+| База данных | Supabase (PostgreSQL) |
+| Авторизация | Supabase Auth |
+| Realtime | Supabase Channels |
+| Хранилище | Supabase Storage (аватарки) |
+| Cron | Supabase Edge Functions + pg_cron |
+| Деплой | Vercel |
+
+---
 
 ## 🔐 Безопасность
-- **Row Level Security (RLS):** Доступ к данным строго разграничен на уровне базы данных. Пользователи видят только свои транзакции или транзакции своего партнера.
-- **Email Confirmation:** Регистрация только через подтверждение почты.
+- **RLS** на всех таблицах — пользователь видит только данные своей пары
+- **Email confirmation** — регистрация только через подтверждение почты
+- Ключи Supabase через переменные окружения, в репо не попадают
 
 
 ## Быстрый старт
@@ -53,33 +66,65 @@ vercel
 ```
 Добавь env переменные в Vercel Dashboard → Settings → Environment Variables.
 
-## Структура
+## Структура проекта
 
 ```
 src/
-  components/
-    AddExpenseModal   — модалка добавления траты
-    BalanceCard       — карточка с балансом
-    TransactionList   — список транзакций
-    InviteBanner      — баннер с инвайт-ссылкой
-  pages/
-    LoginPage         — вход
-    RegisterPage      — регистрация
-    HomePage          — главный экран
-    InvitePage        — обработка инвайт-ссылки
-  hooks/
-    useAuth           — контекст авторизации
-  lib/
-    supabase          — клиент Supabase
+├── components/
+│   ├── AddExpenseModal    — модалка создания и редактирования траты
+│   ├── BalanceCard        — карточка баланса с СБП-ссылкой
+│   ├── CategoryFilter     — фильтр по категориям + кастомные категории
+│   ├── InsightCards       — умные карточки с аналитикой (мобилка)
+│   ├── InviteBanner       — баннер для приглашения партнёра
+│   ├── SideTips           — боковые панели (десктоп)
+│   ├── Toast              — уведомления об успехе / ошибках
+│   └── TransactionList    — список трат с редактированием
+├── hooks/
+│   ├── useAuth            — контекст авторизации
+│   └── useRealtimeExpenses — подписка на изменения в реальном времени
+├── lib/
+│   └── supabase           — клиент Supabase
+└── pages/
+    ├── HomePage           — главный экран
+    ├── HistoryPage        — история и аналитика
+    ├── InvitePage         — обработка инвайт-ссылки
+    ├── LoginPage          — вход
+    ├── NotFoundPage       — 404
+    ├── OnboardingPage     — онбординг для новых пользователей
+    ├── PartnerPage        — настройки партнёра, выход из пары
+    ├── ProfilePage        — профиль, аватар, пол
+    ├── RegisterPage       — регистрация
+    └── SettingsPage       — хаб настроек, режим, закрыть месяц
+
+supabase/
+└── functions/
+    └── process-recurring  — Edge Function для повторяющихся трат (cron)
 ```
 
+---
+
 ## Что работает в MVP
-- ✅ Регистрация / вход
-- ✅ Инвайт-ссылка для создания пары
-- ✅ Добавление трат с категорией
-- ✅ Автоматический расчёт баланса
-- ✅ Фильтр по категориям
-- ✅ Уютный тёплый дизайн
-- ✅ Realtime синхронизация (Supabase subscriptions)
-- ✅ Графики по месяцам
+### Основное
+- 💳 Добавление трат с категорией, суммой и комментарием
+- ⚖️ Автоматический расчёт баланса — кто кому и сколько должен
+- 🔄 Повторяющиеся траты — указываешь число месяца, появляются автоматически
+- 📊 История и аналитика — графики по неделе / месяцу / году, топ категорий, сравнение с прошлым периодом
+- 🔍 Инсайты — горячий день недели, дрейф трат, прогноз на конец месяца, кто чаще у кассы
+
+### Режимы
+- **Поровну** — строго пополам, видно кто кому должен, кнопка "Рассчитаться" с СБП-ссылкой
+- **Общий бюджет** — просто учёт общих трат без подсчёта долгов
+
+### Пара
+- Инвайт-ссылка для подключения партнёра
+- Realtime синхронизация — траты и изменения появляются мгновенно у обоих
+- Аватарки, имя, пол — настраиваются в профиле
+
+### Технические
+- 📱 PWA — устанавливается на iPhone и Android как нативное приложение
+- 🔐 Row Level Security — данные видит только твоя пара, никто больше
+- ✉️ Подтверждение email при регистрации
+- 🌐 Десктоп — трёхколоночный лейаут с инсайтами по бокам
+
+---
 
