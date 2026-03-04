@@ -12,6 +12,7 @@ import { useRealtimeExpenses } from '../hooks/useRealtimeExpenses'
 import { useToast } from '../components/Toast'
 import AppLogo from '../components/AppLogo'
 import InsightCards from '../components/InsightCards'
+import LoadingScreen from '../components/LoadingScreen'
 import styles from './HomePage.module.css'
 
 export default function HomePage() {

@@ -20,19 +20,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 24px 16px;
   border-bottom: 1px solid rgba(92,61,46,0.08);
+  position: relative;
 }
 
 .backBtn {
   background: none;
   border: none;
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 300;
   color: var(--terracotta);
   cursor: pointer;
-  padding: 6px 0;
+  padding: 4px 8px 4px 0;
+  line-height: 1;
+  min-width: 32px;
 }
 
 .headerTitle {
@@ -40,6 +42,11 @@
   font-size: 18px;
   font-weight: 600;
   color: var(--brown);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 /* Sections */

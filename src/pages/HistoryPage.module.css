@@ -1,9 +1,9 @@
 .wrapper { min-height:100vh; display:flex; justify-content:center; background: radial-gradient(ellipse at 15% 50%, rgba(242,169,126,0.12) 0%, transparent 60%), radial-gradient(ellipse at 85% 30%, rgba(139,168,136,0.10) 0%, transparent 60%); }
 .page { width:100%; max-width:560px; min-height:100vh; background:var(--cream); box-shadow:0 0 60px rgba(92,61,46,0.08); padding-bottom:40px; }
 
-.header { display:flex; align-items:center; justify-content:space-between; padding:16px 24px; border-bottom:1px solid rgba(92,61,46,0.08); flex-wrap:wrap; gap:10px; }
-.backBtn { background:none; border:none; font-family:'Nunito',sans-serif; font-size:14px; font-weight:700; color:var(--terracotta); cursor:pointer; padding:6px 0; }
-.headerTitle { font-family:'Playfair Display',serif; font-size:18px; font-weight:600; color:var(--brown); }
+.header { display:flex; align-items:center; justify-content:space-between; padding:calc(14px + env(safe-area-inset-top, 0px)) 24px 14px; border-bottom:1px solid rgba(92,61,46,0.08); position:relative; }
+.backBtn { background:none; border:none; font-size:22px; font-weight:300; color:var(--terracotta); cursor:pointer; padding:4px 8px 4px 0; line-height:1; min-width:32px; }
+.headerTitle { font-family:'Playfair Display',serif; font-size:18px; font-weight:600; color:var(--brown); position:absolute; left:50%; transform:translateX(-50%); pointer-events:none; white-space:nowrap; }
 
 .periodTabs { display:flex; gap:4px; }
 .periodTab { background:var(--card); border:1.5px solid transparent; border-radius:50px; padding:6px 12px; font-family:'Nunito',sans-serif; font-size:12px; font-weight:700; color:var(--brown-light); cursor:pointer; transition:all 0.15s; }
@@ -11,12 +11,13 @@
 
 /* Summary */
 .summaryRow { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:16px 24px 0; }
-.summaryCard { background:var(--card); border-radius:18px; padding:16px; box-shadow:0 2px 12px var(--shadow); animation:fadeUp 0.4s ease both; }
+.summaryCard { background:var(--card); border-radius:18px; padding:16px; box-shadow:0 2px 12px var(--shadow); animation:fadeUp 0.4s ease both; min-height:96px; display:flex; flex-direction:column; justify-content:flex-start; }
 .summaryVal { font-family:'Playfair Display',serif; font-size:22px; font-weight:600; color:var(--brown); }
 .summaryLabel { font-size:12px; color:var(--text-muted); margin-top:3px; font-weight:500; }
 .diffBadge { display:inline-block; margin-top:8px; border-radius:50px; padding:3px 10px; font-size:11px; font-weight:700; }
 .diffUp { background:#FFE8E0; color:#C96A3A; }
 .diffDown { background:#E4F0E3; color:#4A7048; }
+.diffHidden { opacity:0; pointer-events:none; }
 
 /* Who spent */
 .whoCard { margin:12px 24px 0; background:var(--card); border-radius:18px; padding:16px; box-shadow:0 2px 12px var(--shadow); animation:fadeUp 0.4s 0.1s ease both; }
@@ -69,3 +70,19 @@
 .compArrow { font-size:20px; font-weight:800; }
 .compUp { color:var(--terracotta); }
 .compDown { color:#4A7048; }
+
+/* Year switcher */
+.yearRow { display:flex; align-items:center; justify-content:center; gap:20px; padding:14px 24px 4px; }
+.yearBtn { background:none; border:1.5px solid rgba(92,61,46,0.15); border-radius:50%; width:34px; height:34px; font-size:20px; line-height:1; color:var(--terracotta); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; flex-shrink:0; }
+.yearBtn:hover:not(:disabled) { background:var(--peach-light); border-color:var(--terracotta); }
+.yearBtn:disabled { opacity:0.25; cursor:not-allowed; }
+.yearLabel { font-family:'Playfair Display',serif; font-size:20px; font-weight:600; color:var(--brown); min-width:52px; text-align:center; }
+
+/* Period tabs — под графиком */
+.periodTabs { display:flex; gap:6px; justify-content:center; margin-top:16px; padding-top:14px; border-top:1px solid rgba(92,61,46,0.07); }
+.periodTab { background:rgba(92,61,46,0.06); border:1.5px solid transparent; border-radius:50px; padding:7px 18px; font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; color:var(--brown-light); cursor:pointer; transition:all 0.15s; }
+.periodActive { background:var(--terracotta); color:white; border-color:var(--terracotta); box-shadow:0 3px 10px rgba(201,106,58,0.35); }
+
+/* Category meta line and pct */
+.catMeta { font-size:11px; color:var(--text-muted); margin-top:4px; }
+.catPct { font-size:11px; color:var(--text-muted); margin-top:3px; font-weight:600; }

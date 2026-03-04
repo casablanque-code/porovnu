@@ -8,7 +8,6 @@
   align-items: flex-end;
   justify-content: center;
   animation: fadeIn 0.2s ease;
-  touch-action: none; /* блокируем pull-to-refresh пока модалка открыта */
   overscroll-behavior: none;
 }
 

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Поровну">
+</head>
+<body>
+<p id="status">Тапни в поле:</p>
+<input type="email" placeholder="email" style="font-size:16px;padding:12px;width:90%;display:block;margin:20px auto;"
+  onfocus="document.getElementById('status').textContent='ФОКУС ЕСТЬ'"
+  onblur="document.getElementById('status').textContent='фокус потерян'"
+/>
+<p>PWA: <span id="pwa"></span></p>
+<script>
+  document.getElementById('pwa').textContent = window.navigator.standalone ? 'standalone' : 'browser'
+</script>
+</body>
+</html>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../hooks/useAuth'
+import LoadingScreen from '../components/LoadingScreen'
 import styles from './SettingsPage.module.css'
 
 const AVATAR_COLORS = ['#C96A3A','#8BA888','#7B9EC9','#C97BAA','#C9A83A','#7BC9C0']
@@ -50,7 +51,7 @@ export default function SettingsPage() {
     alert('Месяц закрыт ✓')
   }
 
-  if (loading) return <div style={{display:'flex',alignItems:'center',justifyContent:'center',height:'100vh',color:'var(--text-muted)'}}>загружаем...</div>
+  if (loading) return <LoadingScreen />
 
   const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
   const now = new Date()
@@ -59,7 +60,7 @@ export default function SettingsPage() {
     <div className={styles.wrapper}>
       <div className={styles.page}>
         <div className={styles.header}>
-          <button className={styles.backBtn} onClick={() => navigate('/')}>← Назад</button>
+          <button className={styles.backBtn} onClick={() => navigate('/')}>←</button>
           <div className={styles.headerTitle}>Настройки</div>
           <div />
         </div>

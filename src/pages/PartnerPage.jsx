@@ -42,7 +42,7 @@ export default function PartnerPage() {
     <div className={styles.wrapper}>
       <div className={styles.page}>
         <div className={styles.header}>
-          <button className={styles.backBtn} onClick={() => navigate('/settings')}>← Назад</button>
+          <button className={styles.backBtn} onClick={() => navigate('/settings')}>←</button>
           <div className={styles.headerTitle}>Партнёр</div>
           <div />
         </div>
