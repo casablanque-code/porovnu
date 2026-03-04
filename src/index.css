@@ -112,3 +112,13 @@ input, textarea, select {
   position: relative;
   z-index: 1;
 }
+
+/* Запрещаем выделение текста везде кроме полей ввода */
+body, button, .pill, [class*="pill"], [class*="btn"], [class*="card"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+input, textarea, [contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}

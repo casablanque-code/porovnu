@@ -1,6 +1,6 @@
 .wrap { padding: 16px 24px 4px; }
 
-.grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.grid { display: flex; flex-wrap: wrap; gap: 8px; user-select: none; -webkit-user-select: none; }
 
 .pill {
   background: var(--card);
@@ -207,3 +207,5 @@
   border-color: var(--sage);
   box-shadow: 0 3px 10px rgba(139,168,136,0.4);
 }
+
+.editingPill { border-color: var(--terracotta) !important; background: var(--peach-light) !important; }
