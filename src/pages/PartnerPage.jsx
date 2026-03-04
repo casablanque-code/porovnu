@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { User } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../hooks/useAuth'
@@ -42,7 +43,7 @@ export default function PartnerPage() {
     <div className={styles.wrapper}>
       <div className={styles.page}>
         <div className={styles.header}>
-          <button className={styles.backBtn} onClick={() => navigate('/settings')}>←</button>
+          <button className={styles.backBtn} onClick={() => navigate('/settings')}>‹</button>
           <div className={styles.headerTitle}>Партнёр</div>
           <div />
         </div>
@@ -86,7 +87,7 @@ export default function PartnerPage() {
             </>
           ) : (
             <div className={styles.noPartner}>
-              <div style={{fontSize:48,marginBottom:12}}>👤</div>
+              <div style={{marginBottom:12,opacity:0.3}}><User size={48} strokeWidth={1}/></div>
               <div className={styles.noPartnerText}>Партнёр ещё не подключился</div>
               <div className={styles.noPartnerSub}>Отправь инвайт-ссылку с главного экрана</div>
             </div>

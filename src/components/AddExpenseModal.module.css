@@ -8,54 +8,44 @@
   align-items: flex-end;
   justify-content: center;
   animation: fadeIn 0.2s ease;
+  touch-action: none;
   overscroll-behavior: none;
 }
 
 .modal {
   background: #FFF9F2;
   border-radius: 28px 28px 0 0;
-  padding: 20px 24px 0;
   width: 100%;
   max-width: 480px;
   max-height: 92vh;
   display: flex;
   flex-direction: column;
-  animation: slideUp 0.3s ease;
+  animation: slideUp 0.3s cubic-bezier(0.34,1.1,0.64,1);
   will-change: transform;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.modalScroll {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 0 0 40px;
-  flex: 1;
-  touch-action: pan-y; /* внутри скролл работает */
-  overscroll-behavior: contain;
-}
-
-/* Скроллбар почти невидимый */
-.modalScroll::-webkit-scrollbar {
-  width: 3px;
-}
-.modalScroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.modalScroll::-webkit-scrollbar-thumb {
-  background: rgba(92,61,46,0.15);
-  border-radius: 50px;
 }
 
 .handle {
   width: 36px;
   height: 4px;
-  background: rgba(92,61,46,0.15);
+  background: rgba(92,61,46,0.18);
   border-radius: 50px;
-  margin: 0 auto 20px;
+  margin: 14px auto 8px;
+  flex-shrink: 0;
+  cursor: grab;
 }
+
+.modalScroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 24px 48px;
+  flex: 1;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+.modalScroll::-webkit-scrollbar { width: 3px; }
+.modalScroll::-webkit-scrollbar-track { background: transparent; }
+.modalScroll::-webkit-scrollbar-thumb { background: rgba(92,61,46,0.15); border-radius: 50px; }
 
 .title {
   font-family: 'Playfair Display', serif;
@@ -65,9 +55,7 @@
   margin-bottom: 20px;
 }
 
-.inputGroup {
-  margin-bottom: 16px;
-}
+.inputGroup { margin-bottom: 16px; }
 
 .label {
   display: block;
@@ -85,12 +73,11 @@
   border: 1.5px solid rgba(92,61,46,0.12);
   border-radius: 14px;
   padding: 13px 16px;
-  font-size: 16px; /* 16px — iOS не зумирует */
+  font-size: 16px;
   color: var(--text);
   outline: none;
   transition: border-color 0.2s;
 }
-
 .input:focus { border-color: var(--terracotta); }
 
 .amountInput {
@@ -101,28 +88,11 @@
   letter-spacing: 1px;
 }
 
-/* Убираем стрелки у number полей */
 input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 input[type=number] { -moz-appearance: textfield; }
 
-.amountInputOLD {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  font-weight: 600;
-  text-align: center;
-  letter-spacing: -1px;
-  padding: 14px 16px;
-}
-
-.catGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
+.catGrid { display: flex; flex-wrap: wrap; gap: 7px; }
 
 .catBtn {
   display: flex;
@@ -140,26 +110,12 @@ input[type=number] { -moz-appearance: textfield; }
   transition: all 0.15s;
   white-space: nowrap;
 }
-
-.catBtn:hover {
-  border-color: rgba(201,106,58,0.3);
-  transform: translateY(-1px);
-}
-
-.catSel {
-  background: var(--peach-light);
-  border-color: var(--terracotta);
-  color: var(--terracotta);
-}
-
+.catBtn:hover { border-color: rgba(201,106,58,0.3); }
+.catSel { background: var(--peach-light); border-color: var(--terracotta); color: var(--terracotta); }
 .catEmoji { font-size: 15px; }
 .catLabel { font-size: 12px; }
 
-.whoToggle {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
+.whoToggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
 .whoBtn {
   padding: 12px;
@@ -175,12 +131,7 @@ input[type=number] { -moz-appearance: textfield; }
   justify-content: center;
   gap: 6px;
 }
-
-.whoSel {
-  background: var(--peach-light);
-  border-color: var(--terracotta);
-  color: var(--terracotta);
-}
+.whoSel { background: var(--peach-light); border-color: var(--terracotta); color: var(--terracotta); }
 
 .saveBtn {
   width: 100%;
@@ -195,66 +146,18 @@ input[type=number] { -moz-appearance: textfield; }
   box-shadow: 0 6px 20px rgba(201,106,58,0.4);
   transition: all 0.2s;
 }
+.saveBtn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 26px rgba(201,106,58,0.5); }
+.saveBtn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.saveBtn:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 26px rgba(201,106,58,0.5);
-}
-
-.saveBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Comment */
 .optional { font-weight: 400; color: var(--text-muted); font-size: 11px; margin-left: 4px; text-transform: none; letter-spacing: 0; }
 
-/* Recurring */
-.recurringToggle {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  user-select: none;
-}
+.recurringToggle { display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
+.checkbox { width: 18px; height: 18px; accent-color: var(--terracotta); cursor: pointer; flex-shrink: 0; }
+.recurringLabel { font-size: 14px; font-weight: 600; color: var(--brown); }
 
-.checkbox {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--terracotta);
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.recurringLabel {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--brown);
-}
-
-.dayPicker {
-  margin-top: 12px;
-  background: var(--cream);
-  border-radius: 14px;
-  padding: 12px;
-  animation: fadeUp 0.2s ease both;
-}
-
-.dayPickerLabel {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-}
-
-.dayGrid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
-}
-
+.dayPicker { margin-top: 12px; background: var(--cream); border-radius: 14px; padding: 12px; animation: fadeUp 0.2s ease both; }
+.dayPickerLabel { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+.dayGrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
 .dayBtn {
   aspect-ratio: 1;
   border-radius: 8px;
@@ -270,6 +173,8 @@ input[type=number] { -moz-appearance: textfield; }
   align-items: center;
   justify-content: center;
 }
-
 .dayBtn:hover { border-color: rgba(201,106,58,0.3); }
 .daySel { background: var(--terracotta); color: white; border-color: var(--terracotta); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }

@@ -1,3 +1,4 @@
+import { Calendar, TrendingUp, TrendingDown, Zap, Search, CreditCard, Star } from 'lucide-react'
 import styles from './InsightCards.module.css'
 
 function getInsights({ expenses, userId, myName, partnerName, myGender }) {
@@ -20,7 +21,7 @@ function getInsights({ expenses, userId, myName, partnerName, myGender }) {
   if (dayTotals[maxDay] > 0) {
     insights.push({
       id: 'hot_day',
-      emoji: '📅',
+      icon: 'Calendar',
       title: `${dayNamesShort[maxDay]} — горячий день`,
       text: `Больше всего трат в ${dayNames[maxDay]}: ₽${Math.round(dayTotals[maxDay]).toLocaleString('ru')} за месяц.`,
       color: '#FFF0E8',
@@ -39,7 +40,7 @@ function getInsights({ expenses, userId, myName, partnerName, myGender }) {
     if (Math.abs(diff) >= 15) {
       insights.push({
         id: 'drift',
-        emoji: diff > 0 ? '📈' : '📉',
+        icon: diff > 0 ? 'TrendingUp' : 'TrendingDown',
         title: diff > 0 ? 'Траты разгоняются' : 'Траты замедляются',
         text: diff > 0
           ? `Во второй половине месяца вы тратите на ${diff}% больше чем в первой.`
@@ -59,7 +60,7 @@ function getInsights({ expenses, userId, myName, partnerName, myGender }) {
     const impulseShare = Math.round(impulseSum / (impulseSum + plannedSum) * 100)
     insights.push({
       id: 'impulse',
-      emoji: '⚡',
+      icon: 'Zap',
       title: 'Мелкие траты',
       text: `${impulse.length} покупок до ₽500 — это ${impulseShare}% всех расходов (₽${Math.round(impulseSum).toLocaleString('ru')}). Кофе, перекусы, мелочи.`,
       color: '#F0F0FF',
@@ -87,7 +88,7 @@ function getInsights({ expenses, userId, myName, partnerName, myGender }) {
     const CAT_LABELS = { food:'Продукты', home:'Жильё', fun:'Досуг', transport:'Транспорт', health:'Здоровье', cafe:'Кафе', other:'Другое' }
     insights.push({
       id: 'surprise_cat',
-      emoji: '🔍',
+      icon: 'Search',
       title: 'Категория растёт',
       text: `«${CAT_LABELS[maxGrowthCat] || maxGrowthCat}» выросла на ${Math.round(maxGrowth)}% во второй половине месяца. Следите за этим.`,
       color: '#FFF8E0',
@@ -104,7 +105,7 @@ function getInsights({ expenses, userId, myName, partnerName, myGender }) {
     const pct = Math.round(ratio / expenses.length * 100)
     insights.push({
       id: 'who_pays',
-      emoji: '💳',
+      icon: 'CreditCard',
       title: `${more} чаще у кассы`,
       text: `${more} добавляет ${pct}% всех трат. Это не значит больше платит — просто чаще вносит данные.`,
       color: '#E8F5FF',
@@ -127,7 +128,7 @@ function getInsights({ expenses, userId, myName, partnerName, myGender }) {
     const projected = Math.round(dailyRate * totalDays)
     insights.push({
       id: 'projection',
-      emoji: '🔮',
+      icon: 'Star',
       title: 'Прогноз месяца',
       text: `При текущем темпе к концу месяца потратите ₽${projected.toLocaleString('ru')}. Сейчас прошло ${Math.round(dayOfMonth/totalDays*100)}% месяца.`,
       color: '#F0E8FF',
@@ -186,6 +187,13 @@ function ProgressBar({ progress, accent }) {
   )
 }
 
+
+const INSIGHT_ICONS = { Calendar, TrendingUp, TrendingDown, Zap, Search, CreditCard, Star }
+function InsightIcon({ name }) {
+  const Comp = INSIGHT_ICONS[name]
+  return Comp ? <Comp size={20} strokeWidth={1.75} /> : null
+}
+
 export default function InsightCards({ expenses, userId, myName, partnerName, myGender }) {
   const insights = getInsights({ expenses, userId, myName, partnerName, myGender })
   if (insights.length === 0) return null
@@ -197,7 +205,7 @@ export default function InsightCards({ expenses, userId, myName, partnerName, my
         {insights.map(ins => (
           <div key={ins.id} className={styles.card} style={{ background: ins.color }}>
             <div className={styles.cardHeader}>
-              <span className={styles.cardEmoji}>{ins.emoji}</span>
+              <span className={styles.cardEmoji}><InsightIcon name={ins.icon} /></span>
               <span className={styles.cardTitle} style={{ color: ins.accent }}>{ins.title}</span>
             </div>
             <div className={styles.cardText}>{ins.text}</div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Settings } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../hooks/useAuth'
@@ -12,7 +13,6 @@ import { useRealtimeExpenses } from '../hooks/useRealtimeExpenses'
 import { useToast } from '../components/Toast'
 import AppLogo from '../components/AppLogo'
 import InsightCards from '../components/InsightCards'
-import LoadingScreen from '../components/LoadingScreen'
 import styles from './HomePage.module.css'
 
 export default function HomePage() {
@@ -106,10 +106,38 @@ export default function HomePage() {
     setExpenses(data || [])
   }
 
-  async function handleDeleteExpense(id) {
-    const { error } = await supabase.from('expenses').delete().eq('id', id)
-    if (error) toast('Ошибка при удалении', 'error')
-    else { toast('Удалено', 'info'); await loadExpenses(pair.id) }
+  function handleDeleteExpense(id, expData) {
+    // Оптимистично убираем из UI
+    setExpenses(prev => prev.filter(e => e.id !== id))
+
+    let undone = false
+    const toastId = toast('Трата удалена', 'delete', {
+      label: 'Отменить',
+      duration: 5000,
+      onClick: () => {
+        undone = true
+        setExpenses(prev => {
+          // Вставляем обратно на то же место по дате
+          const restored = [...prev, expData].sort((a,b) =>
+            new Date(b.created_at) - new Date(a.created_at)
+          )
+          return restored
+        })
+      }
+    })
+
+    // Удаляем из БД через 5.2 сек если не отменили
+    setTimeout(async () => {
+      if (!undone) {
+        const { error } = await supabase.from('expenses').delete().eq('id', id)
+        if (error) {
+          setExpenses(prev => [...prev, expData].sort((a,b) =>
+            new Date(b.created_at) - new Date(a.created_at)
+          ))
+          toast('Ошибка при удалении', 'error')
+        }
+      }
+    }, 5200)
   }
 
   async function handleEditExpense(id, updates) {
@@ -202,7 +230,7 @@ export default function HomePage() {
                 )}
               </div>
             )}
-            <button className={styles.settingsBtn} onClick={() => navigate('/settings')} title="Настройки">⚙️</button>
+            <button className={styles.settingsBtn} onClick={() => navigate('/settings')} title="Настройки"><Settings size={20} strokeWidth={1.75} /></button>
           </div>
         </div>
 
@@ -285,6 +313,7 @@ export default function HomePage() {
             <TransactionList
               expenses={filtered}
               userId={user.id}
+              partnerId={partner?.id}
               myName={myName}
               partnerName={partnerName}
               allCategories={allCategories}

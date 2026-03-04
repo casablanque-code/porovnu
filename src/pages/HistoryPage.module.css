@@ -2,12 +2,9 @@
 .page { width:100%; max-width:560px; min-height:100vh; background:var(--cream); box-shadow:0 0 60px rgba(92,61,46,0.08); padding-bottom:40px; }
 
 .header { display:flex; align-items:center; justify-content:space-between; padding:calc(14px + env(safe-area-inset-top, 0px)) 24px 14px; border-bottom:1px solid rgba(92,61,46,0.08); position:relative; }
-.backBtn { background:none; border:none; font-size:22px; font-weight:300; color:var(--terracotta); cursor:pointer; padding:4px 8px 4px 0; line-height:1; min-width:32px; }
+.backBtn { background:none; border:none; font-size:26px; font-weight:300; color:var(--terracotta); cursor:pointer; padding:4px 10px 4px 0; line-height:1; min-width:32px; opacity:0.85; transition:opacity 0.15s; }
+.backBtn:hover { opacity:1; }
 .headerTitle { font-family:'Playfair Display',serif; font-size:18px; font-weight:600; color:var(--brown); position:absolute; left:50%; transform:translateX(-50%); pointer-events:none; white-space:nowrap; }
-
-.periodTabs { display:flex; gap:4px; }
-.periodTab { background:var(--card); border:1.5px solid transparent; border-radius:50px; padding:6px 12px; font-family:'Nunito',sans-serif; font-size:12px; font-weight:700; color:var(--brown-light); cursor:pointer; transition:all 0.15s; }
-.periodActive { background:var(--terracotta); color:white; box-shadow:0 3px 10px rgba(201,106,58,0.35); }
 
 /* Summary */
 .summaryRow { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:16px 24px 0; }
@@ -72,7 +69,7 @@
 .compDown { color:#4A7048; }
 
 /* Year switcher */
-.yearRow { display:flex; align-items:center; justify-content:center; gap:20px; padding:14px 24px 4px; }
+.yearRow { display:flex; align-items:center; justify-content:center; gap:20px; padding:12px 24px 0; }
 .yearBtn { background:none; border:1.5px solid rgba(92,61,46,0.15); border-radius:50%; width:34px; height:34px; font-size:20px; line-height:1; color:var(--terracotta); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; flex-shrink:0; }
 .yearBtn:hover:not(:disabled) { background:var(--peach-light); border-color:var(--terracotta); }
 .yearBtn:disabled { opacity:0.25; cursor:not-allowed; }
@@ -86,3 +83,5 @@
 /* Category meta line and pct */
 .catMeta { font-size:11px; color:var(--text-muted); margin-top:4px; }
 .catPct { font-size:11px; color:var(--text-muted); margin-top:3px; font-weight:600; }
+
+.catIconWrap { width:32px; height:32px; border-radius:10px; background:var(--cream); display:flex; align-items:center; justify-content:center; flex-shrink:0; }

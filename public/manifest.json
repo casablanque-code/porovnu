@@ -1,7 +1,7 @@
 {
   "name": "Поровну",
   "short_name": "Поровну",
-  "description": "Общий бюджет для пар и соседей",
+  "description": "Общий бюджет для пар",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -20,6 +20,11 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
     }
   ]
 }

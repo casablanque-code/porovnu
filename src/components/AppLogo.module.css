@@ -11,56 +11,17 @@
   transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
-.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.visible { opacity: 1; transform: translateY(0); }
+.hidden  { opacity: 0; transform: translateY(-4px); }
 
-.hidden {
-  opacity: 0;
-  transform: translateY(-4px);
-}
-
-/* ── Вариант А: знак деления, режим Поровну ── */
-.markSplit {
-  width: 38px;
-  height: 38px;
-  background: linear-gradient(135deg, #C96A3A, #E8916A);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(201,106,58,0.35);
-  transition: all 0.3s ease;
-}
-
-/* ── Вариант Д: П в круге, режим Общий бюджет ── */
-.markShared {
+.mark {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: conic-gradient(#C96A3A 0deg 180deg, #8BA888 180deg 360deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  object-fit: cover;
   flex-shrink: 0;
   box-shadow: 0 4px 14px rgba(201,106,58,0.25);
-  transition: all 0.3s ease;
-}
-
-.markSharedInner {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #FAF6F0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: #3D2B1F;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .text {

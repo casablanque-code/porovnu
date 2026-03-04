@@ -28,14 +28,17 @@
 .backBtn {
   background: none;
   border: none;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 300;
   color: var(--terracotta);
   cursor: pointer;
-  padding: 4px 8px 4px 0;
+  padding: 4px 10px 4px 0;
   line-height: 1;
   min-width: 32px;
+  opacity: 0.85;
+  transition: opacity 0.15s;
 }
+.backBtn:hover { opacity: 1; }
 
 .headerTitle {
   font-family: 'Playfair Display', serif;

@@ -1,8 +1,8 @@
+import { User, Users, BarChart2, Scale, Home, ChevronRight } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../hooks/useAuth'
-import LoadingScreen from '../components/LoadingScreen'
 import styles from './SettingsPage.module.css'
 
 const AVATAR_COLORS = ['#C96A3A','#8BA888','#7B9EC9','#C97BAA','#C9A83A','#7BC9C0']
@@ -51,7 +51,7 @@ export default function SettingsPage() {
     alert('Месяц закрыт ✓')
   }
 
-  if (loading) return <LoadingScreen />
+  if (loading) return <div style={{display:'flex',alignItems:'center',justifyContent:'center',height:'100vh',color:'var(--text-muted)'}}>загружаем...</div>
 
   const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
   const now = new Date()
@@ -60,7 +60,7 @@ export default function SettingsPage() {
     <div className={styles.wrapper}>
       <div className={styles.page}>
         <div className={styles.header}>
-          <button className={styles.backBtn} onClick={() => navigate('/')}>←</button>
+          <button className={styles.backBtn} onClick={() => navigate('/')}>‹</button>
           <div className={styles.headerTitle}>Настройки</div>
           <div />
         </div>
@@ -70,13 +70,13 @@ export default function SettingsPage() {
           <div className={styles.sectionTitle}>Режим</div>
           <div className={styles.modeRow}>
             {[
-              { id:'split', emoji:'⚖️', name:'Поровну', desc:'Делим расходы пополам. Видно кто кому должен.' },
-              { id:'shared', emoji:'🏠', name:'Общий бюджет', desc:'Учёт общих трат без подсчёта долгов.' },
+              { id:'split', icon:'Scale', name:'Поровну', desc:'Делим расходы пополам. Видно кто кому должен.' },
+              { id:'shared', icon:'Home', name:'Общий бюджет', desc:'Учёт общих трат без подсчёта долгов.' },
             ].map(m => (
               <button key={m.id}
                 className={`${styles.modeBtn} ${pairMode === m.id ? styles.modeSel : ''}`}
                 onClick={() => handleModeChange(m.id)} disabled={savingMode}>
-                <div className={styles.modeEmoji}>{m.emoji}</div>
+                <div className={styles.modeEmoji}>{m.icon==='Scale'?<Scale size={20} strokeWidth={1.75} color={pair?.mode===m.id?'white':'var(--brown-light)'}/>:<Home size={20} strokeWidth={1.75} color={pair?.mode===m.id?'white':'var(--brown-light)'}/>}</div>
                 <div className={styles.modeName}>{m.name}</div>
                 <div className={styles.modeDesc}>{m.desc}</div>
               </button>
@@ -87,12 +87,12 @@ export default function SettingsPage() {
         {/* Nav to sub-pages */}
         <div className={styles.navSection}>
           {[
-            { path:'/settings/profile', emoji:'👤', label:'Профиль', sub:'Аватар, имя, пол' },
-            { path:'/settings/partner', emoji:'💑', label:'Партнёр', sub:'Инфо и выход из пары' },
-            { path:'/settings/history', emoji:'📊', label:'История и аналитика', sub:'Графики, категории, сравнение' },
+            { path:'/settings/profile', icon:'User', label:'Профиль', sub:'Имя, пол' },
+            { path:'/settings/partner', icon:'Users', label:'Партнёр', sub:'Инфо и выход из пары' },
+            { path:'/settings/history', icon:'BarChart2', label:'История и аналитика', sub:'Графики, категории, сравнение' },
           ].map(item => (
             <button key={item.path} className={styles.navItem} onClick={() => navigate(item.path)}>
-              <div className={styles.navEmoji}>{item.emoji}</div>
+              <div className={styles.navEmoji}>{item.icon==='User'?<User size={18} strokeWidth={1.75}/>:item.icon==='Users'?<Users size={18} strokeWidth={1.75}/>:<BarChart2 size={18} strokeWidth={1.75}/>}</div>
               <div className={styles.navText}>
                 <div className={styles.navLabel}>{item.label}</div>
                 <div className={styles.navSub}>{item.sub}</div>

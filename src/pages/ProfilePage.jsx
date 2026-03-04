@@ -1,3 +1,4 @@
+import { User } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
@@ -5,6 +6,7 @@ import { useAuth } from '../hooks/useAuth'
 import styles from './SettingsPage.module.css'
 
 const AVATAR_COLORS = ['#C96A3A','#8BA888','#7B9EC9','#C97BAA','#C9A83A','#7BC9C0']
+
 
 export default function ProfilePage() {
   const { user } = useAuth()
@@ -50,7 +52,7 @@ export default function ProfilePage() {
     <div className={styles.wrapper}>
       <div className={styles.page}>
         <div className={styles.header}>
-          <button className={styles.backBtn} onClick={() => navigate('/settings')}>←</button>
+          <button className={styles.backBtn} onClick={() => navigate('/settings')}>‹</button>
           <div className={styles.headerTitle}>Профиль</div>
           <div />
         </div>
@@ -75,7 +77,7 @@ export default function ProfilePage() {
             <div className={styles.fieldGroup}>
               <label className={styles.label}>Пол</label>
               <div className={styles.genderRow}>
-                {[{v:'female',l:'👩 Женский'},{v:'male',l:'👨 Мужской'},{v:'other',l:'🧑 Другой'}].map(g => (
+                {[{v:'female',l:'Женский'},{v:'male',l:'Мужской'},{v:'other',l:'Другой'}].map(g => (
                   <button key={g.v} type="button"
                     className={`${styles.genderBtn} ${gender === g.v ? styles.genderSel : ''}`}
                     onClick={() => setGender(g.v)}>{g.l}</button>
