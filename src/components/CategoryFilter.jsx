@@ -68,7 +68,7 @@ export function CatIcon({ icon, emoji, size = 16, color = 'currentColor', stroke
 // id вида 'default_food' → { label, icon }
 const DEFAULT_IDS = new Set(['all','food','home','cafe','transport','health','fun','other'])
 
-const MAX_TOTAL = 10
+const MAX_TOTAL = 14
 
 export default function CategoryFilter({ active, onChange, pairId, onCategoriesChange }) {
   const [custom, setCustom]           = useState([])

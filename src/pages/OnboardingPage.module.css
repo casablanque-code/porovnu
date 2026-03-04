@@ -93,15 +93,27 @@
   pointer-events: auto;
 }
 
-.slideHidden {
+.slideRight {
   opacity: 0;
-  transform: translateX(20px);
+  transform: translateX(32px);
   pointer-events: none;
 }
 
-.emoji {
-  font-size: 58px;
-  margin-bottom: 16px;
+.slideLeft {
+  opacity: 0;
+  transform: translateX(-32px);
+  pointer-events: none;
+}
+
+.iconWrap {
+  width: 88px;
+  height: 88px;
+  border-radius: 28px;
+  background: var(--peach-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
   flex-shrink: 0;
 }
 

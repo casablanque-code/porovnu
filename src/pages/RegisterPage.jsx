@@ -1,3 +1,4 @@
+import { Mail, Folder } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
@@ -50,7 +51,7 @@ export default function RegisterPage() {
     return (
       <div className={styles.page}>
         <div className={styles.card}>
-          <div className={styles.successEmoji}>💌</div>
+          <div className={styles.successEmoji}><Mail size={52} strokeWidth={1.25} color="var(--terracotta)"/></div>
           <div className={styles.logo}>Проверь почту</div>
           <div className={styles.successText}>
             Письмо отправлено на <strong>{pendingEmail}</strong>
@@ -58,9 +59,7 @@ export default function RegisterPage() {
           <div className={styles.successSub}>
             Перейди по ссылке в письме — и попадёшь в приложение сразу. Ссылка работает с любого устройства.
           </div>
-          <div className={styles.successHint}>
-            📁 Не нашёл? Проверь папку «Спам»
-          </div>
+          <div className={styles.successHint}><Folder size={14} strokeWidth={2} style={{verticalAlign:'middle',marginRight:6}}/> Не нашёл? Проверь папку «Спам»</div>
           <div className={styles.footer}>
             Не пришло? <span
               className={styles.link}
@@ -98,9 +97,9 @@ export default function RegisterPage() {
             <label className={styles.label}>Пол</label>
             <div className={styles.genderRow}>
               {[
-                { value: 'female', label: '👩 Женский' },
-                { value: 'male',   label: '👨 Мужской' },
-                { value: 'other',  label: '🧑 Другой'  },
+                { value: 'female', label: 'Женский' },
+                { value: 'male',   label: 'Мужской' },
+                { value: 'other',  label: 'Другой'  },
               ].map(g => (
                 <button key={g.value} type="button"
                   className={`${styles.genderBtn} ${gender === g.value ? styles.genderSel : ''}`}
@@ -126,7 +125,7 @@ export default function RegisterPage() {
           {error && <div className={styles.error}>{error}</div>}
 
           <button className={styles.btn} type="submit" disabled={loading}>
-            {loading ? 'Создаём...' : 'Создать аккаунт →'}
+            {loading ? 'Создаём...' : 'Создать аккаунт'}
           </button>
         </form>
 
