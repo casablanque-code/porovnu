@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useOnlineStatus } from './hooks/useOnlineStatus'
+import { WifiOff } from 'lucide-react'
 import { AuthProvider, useAuth } from './hooks/useAuth'
 import { ToastProvider } from './components/Toast'
 import HomePage from './pages/HomePage'
@@ -27,11 +29,31 @@ function PublicRoute({ children }) {
   return children
 }
 
+
+function OfflineBanner() {
+  const online = useOnlineStatus()
+  if (online) return null
+  return (
+    <div style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 99999,
+      background: 'rgba(92,61,46,0.95)', backdropFilter: 'blur(8px)',
+      color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      gap: 8, padding: '10px 16px',
+      fontFamily: "'Nunito', sans-serif", fontSize: 13, fontWeight: 700,
+      animation: 'slideDown 0.3s ease both',
+    }}>
+      <WifiOff size={15} strokeWidth={2}/>
+      Нет соединения
+    </div>
+  )
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <ToastProvider>
+          <OfflineBanner />
           <Routes>
             <Route path="/" element={<PrivateRoute><HomePage /></PrivateRoute>} />
             <Route path="/onboarding" element={<PublicRoute><OnboardingPage /></PublicRoute>} />

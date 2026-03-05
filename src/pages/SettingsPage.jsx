@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../hooks/useAuth'
-import { User, Users, BarChart2, Scale, Home, ChevronRight } from 'lucide-react'
+import { User, Users, BarChart2, Scale, Home, ChevronRight, CheckCircle } from 'lucide-react'
 import LoadingScreen from '../components/LoadingScreen'
+import { useToast } from '../components/Toast'
 import styles from './SettingsPage.module.css'
 
 export default function SettingsPage() {
@@ -13,6 +14,7 @@ export default function SettingsPage() {
   const [pairMode, setPairMode]   = useState('split')
   const [savingMode, setSavingMode] = useState(false)
   const [loading, setLoading]     = useState(true)
+  const toast = useToast()
 
   useEffect(() => { loadPair() }, [])
 
@@ -47,13 +49,13 @@ export default function SettingsPage() {
       total_spent: totalSpent, my_total: myTotal,
       partner_total: partnerTotal, balance: myTotal - totalSpent/2,
     })
-    alert('Месяц закрыт ✓')
+    toast(`${monthNames[now.getMonth()]} закрыт`, 'success')
   }
-
-  if (loading) return <LoadingScreen />
 
   const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
   const now = new Date()
+
+  if (loading) return <LoadingScreen />
 
   const NAV_ITEMS = [
     { path: '/settings/profile', Icon: User,     label: 'Профиль',            sub: 'Аватар, имя, пол' },

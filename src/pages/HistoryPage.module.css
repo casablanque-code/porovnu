@@ -84,3 +84,23 @@
 .catPct { font-size:11px; color:var(--text-muted); margin-top:3px; font-weight:600; }
 
 .catIconWrap { width:32px; height:32px; border-radius:10px; background:var(--cream); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+
+/* Анимация смены периода */
+@keyframes chartFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.chartAnimating {
+  animation: chartFadeIn 0.3s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}

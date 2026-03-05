@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../hooks/useAuth'
@@ -93,6 +93,7 @@ export default function HistoryPage() {
   const [partnerName, setPartnerName]   = useState('Партнёр')
   const [pairMode, setPairMode]         = useState('split')
   const [loading, setLoading]           = useState(true)
+  const [chartKey, setChartKey]         = useState(0)
   const currentYear = now.getFullYear()
   const currentMonth = now.getMonth()
 
@@ -233,9 +234,9 @@ export default function HistoryPage() {
 
         {/* Year switcher — над графиком */}
         <div className={styles.yearRow}>
-          <button className={styles.yearBtn} onClick={() => setYear(y=>y-1)}>‹</button>
+          <button className={styles.yearBtn} onClick={() => { setYear(y=>y-1); setChartKey(k=>k+1) }}>‹</button>
           <span className={styles.yearLabel}>{year}</span>
-          <button className={styles.yearBtn} onClick={() => setYear(y=>y+1)} disabled={year >= currentYear}>›</button>
+          <button className={styles.yearBtn} onClick={() => { setYear(y=>y+1); setChartKey(k=>k+1) }} disabled={year >= currentYear}>›</button>
         </div>
 
         {/* Chart */}
@@ -244,6 +245,7 @@ export default function HistoryPage() {
             <div className={styles.legendItem}><div className={styles.legendDot} style={{background:'#C96A3A'}}/>{myName}</div>
             <div className={styles.legendItem}><div className={styles.legendDot} style={{background:'#8BA888'}}/>{partnerName}</div>
           </div>
+          <div key={chartKey} className={styles.chartAnimating}>
           {totalSpent === 0 ? (
             <div className={styles.empty}>
               <BarChart2 size={40} color="var(--text-muted)" strokeWidth={1.5}/>
@@ -273,12 +275,13 @@ export default function HistoryPage() {
             </div>
           )}
 
+          </div>
           {/* Period tabs — под графиком */}
           <div className={styles.periodTabs}>
             {PERIODS.map(p => (
               <button key={p.id}
                 className={`${styles.periodTab} ${period===p.id?styles.periodActive:''}`}
-                onClick={() => setPeriod(p.id)}>{p.label}
+                onClick={() => { setPeriod(p.id); setChartKey(k=>k+1) }}>{p.label}
               </button>
             ))}
           </div>
