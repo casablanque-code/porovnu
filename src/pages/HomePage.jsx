@@ -13,6 +13,7 @@ import { useRealtimeExpenses } from '../hooks/useRealtimeExpenses'
 import { useToast } from '../components/Toast'
 import AppLogo from '../components/AppLogo'
 import InsightCards from '../components/InsightCards'
+import LoadingScreen from '../components/LoadingScreen'
 import styles from './HomePage.module.css'
 
 export default function HomePage() {
@@ -199,11 +200,7 @@ export default function HomePage() {
   const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
   const monthName = `${MONTHS[now.getMonth()]} ${now.getFullYear()}`
 
-  if (loading) return (
-    <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', color:'var(--text-muted)' }}>
-      загружаем...
-    </div>
-  )
+  if (loading) return <LoadingScreen />
 
   return (
     <div className={styles.wrapper}>

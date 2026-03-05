@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../hooks/useAuth'
 import { User, Users, BarChart2, Scale, Home, ChevronRight } from 'lucide-react'
+import LoadingScreen from '../components/LoadingScreen'
 import styles from './SettingsPage.module.css'
 
 export default function SettingsPage() {
@@ -49,7 +50,7 @@ export default function SettingsPage() {
     alert('Месяц закрыт ✓')
   }
 
-  if (loading) return <div style={{display:'flex',alignItems:'center',justifyContent:'center',height:'100vh',color:'var(--text-muted)'}}>загружаем...</div>
+  if (loading) return <LoadingScreen />
 
   const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
   const now = new Date()
