@@ -1,19 +1,17 @@
-import { User, Users, BarChart2, Scale, Home, ChevronRight } from 'lucide-react'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../hooks/useAuth'
+import { User, Users, BarChart2, Scale, Home, ChevronRight } from 'lucide-react'
 import styles from './SettingsPage.module.css'
-
-const AVATAR_COLORS = ['#C96A3A','#8BA888','#7B9EC9','#C97BAA','#C9A83A','#7BC9C0']
 
 export default function SettingsPage() {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
-  const [pair, setPair] = useState(null)
-  const [pairMode, setPairMode] = useState('split')
+  const [pair, setPair]           = useState(null)
+  const [pairMode, setPairMode]   = useState('split')
   const [savingMode, setSavingMode] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading]     = useState(true)
 
   useEffect(() => { loadPair() }, [])
 
@@ -40,9 +38,9 @@ export default function SettingsPage() {
     const firstDay = new Date(year, month - 1, 1).toISOString()
     const { data: monthExpenses } = await supabase.from('expenses').select('*')
       .eq('pair_id', pair.id).gte('created_at', firstDay)
-    const myTotal = (monthExpenses||[]).filter(e => e.paid_by === user.id).reduce((s,e) => s+Number(e.amount),0)
-    const partnerTotal = (monthExpenses||[]).filter(e => e.paid_by !== user.id).reduce((s,e) => s+Number(e.amount),0)
-    const totalSpent = myTotal + partnerTotal
+    const myTotal      = (monthExpenses||[]).filter(e=>e.paid_by===user.id).reduce((s,e)=>s+Number(e.amount),0)
+    const partnerTotal = (monthExpenses||[]).filter(e=>e.paid_by!==user.id).reduce((s,e)=>s+Number(e.amount),0)
+    const totalSpent   = myTotal + partnerTotal
     await supabase.from('closed_months').upsert({
       pair_id: pair.id, year, month,
       total_spent: totalSpent, my_total: myTotal,
@@ -56,58 +54,67 @@ export default function SettingsPage() {
   const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
   const now = new Date()
 
+  const NAV_ITEMS = [
+    { path: '/settings/profile', Icon: User,     label: 'Профиль',            sub: 'Аватар, имя, пол' },
+    { path: '/settings/partner', Icon: Users,    label: 'Партнёр',            sub: 'Инфо и выход из пары' },
+    { path: '/settings/history', Icon: BarChart2,label: 'История и аналитика',sub: 'Графики, категории, сравнение' },
+  ]
+
+  const MODE_ITEMS = [
+    { id: 'split',  Icon: Scale, name: 'Поровну',       desc: 'Делим расходы пополам. Видно кто кому должен.' },
+    { id: 'shared', Icon: Home,  name: 'Общий бюджет',  desc: 'Учёт общих трат без подсчёта долгов.' },
+  ]
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.page}>
         <div className={styles.header}>
           <button className={styles.backBtn} onClick={() => navigate('/')}>‹</button>
           <div className={styles.headerTitle}>Настройки</div>
-          <div />
+          <div style={{width:32}}/>
         </div>
 
-        {/* Mode — первым делом */}
+        {/* Режим */}
         <div className={styles.section}>
           <div className={styles.sectionTitle}>Режим</div>
           <div className={styles.modeRow}>
-            {[
-              { id:'split', icon:'Scale', name:'Поровну', desc:'Делим расходы пополам. Видно кто кому должен.' },
-              { id:'shared', icon:'Home', name:'Общий бюджет', desc:'Учёт общих трат без подсчёта долгов.' },
-            ].map(m => (
-              <button key={m.id}
-                className={`${styles.modeBtn} ${pairMode === m.id ? styles.modeSel : ''}`}
-                onClick={() => handleModeChange(m.id)} disabled={savingMode}>
-                <div className={styles.modeEmoji}>{m.icon==='Scale'?<Scale size={20} strokeWidth={1.75} color={pair?.mode===m.id?'white':'var(--brown-light)'}/>:<Home size={20} strokeWidth={1.75} color={pair?.mode===m.id?'white':'var(--brown-light)'}/>}</div>
-                <div className={styles.modeName}>{m.name}</div>
-                <div className={styles.modeDesc}>{m.desc}</div>
+            {MODE_ITEMS.map(({ id, Icon, name, desc }) => (
+              <button key={id}
+                className={`${styles.modeBtn} ${pairMode === id ? styles.modeSel : ''}`}
+                onClick={() => handleModeChange(id)} disabled={savingMode}>
+                <div className={styles.modeIcon}>
+                  <Icon size={22} strokeWidth={1.6}
+                    color={pairMode === id ? 'var(--terracotta)' : 'var(--brown-light)'}/>
+                </div>
+                <div className={styles.modeName}>{name}</div>
+                <div className={styles.modeDesc}>{desc}</div>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Nav to sub-pages */}
+        {/* Навигация */}
         <div className={styles.navSection}>
-          {[
-            { path:'/settings/profile', icon:'User', label:'Профиль', sub:'Имя, пол' },
-            { path:'/settings/partner', icon:'Users', label:'Партнёр', sub:'Инфо и выход из пары' },
-            { path:'/settings/history', icon:'BarChart2', label:'История и аналитика', sub:'Графики, категории, сравнение' },
-          ].map(item => (
-            <button key={item.path} className={styles.navItem} onClick={() => navigate(item.path)}>
-              <div className={styles.navEmoji}>{item.icon==='User'?<User size={18} strokeWidth={1.75}/>:item.icon==='Users'?<Users size={18} strokeWidth={1.75}/>:<BarChart2 size={18} strokeWidth={1.75}/>}</div>
-              <div className={styles.navText}>
-                <div className={styles.navLabel}>{item.label}</div>
-                <div className={styles.navSub}>{item.sub}</div>
+          {NAV_ITEMS.map(({ path, Icon, label, sub }) => (
+            <button key={path} className={styles.navItem} onClick={() => navigate(path)}>
+              <div className={styles.navIconWrap}>
+                <Icon size={20} strokeWidth={1.75} color="var(--brown-light)"/>
               </div>
-              <div className={styles.navArrow}>→</div>
+              <div className={styles.navText}>
+                <div className={styles.navLabel}>{label}</div>
+                <div className={styles.navSub}>{sub}</div>
+              </div>
+              <ChevronRight size={18} strokeWidth={2} color="var(--brown-light)" style={{opacity:0.5}}/>
             </button>
           ))}
         </div>
 
-        {/* Close month */}
+        {/* Закрыть месяц */}
         <div className={styles.section}>
           <div className={styles.sectionTitle}>Закрыть месяц</div>
           <div className={styles.closeMonthText}>Фиксирует итог {monthNames[now.getMonth()]} в архив.</div>
           <button className={styles.closeBtn} onClick={handleCloseMonth}>
-            Закрыть {monthNames[now.getMonth()]} →
+            Закрыть {monthNames[now.getMonth()]}
           </button>
         </div>
 

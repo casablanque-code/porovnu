@@ -9,12 +9,11 @@
 /* Summary */
 .summaryRow { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:16px 24px 0; }
 .summaryCard { background:var(--card); border-radius:18px; padding:16px; box-shadow:0 2px 12px var(--shadow); animation:fadeUp 0.4s ease both; min-height:96px; display:flex; flex-direction:column; justify-content:flex-start; }
+.summaryValRow { display:flex; align-items:baseline; gap:6px; }
 .summaryVal { font-family:'Playfair Display',serif; font-size:22px; font-weight:600; color:var(--brown); }
 .summaryLabel { font-size:12px; color:var(--text-muted); margin-top:3px; font-weight:500; }
-.diffBadge { display:inline-block; margin-top:8px; border-radius:50px; padding:3px 10px; font-size:11px; font-weight:700; }
-.diffUp { background:#FFE8E0; color:#C96A3A; }
-.diffDown { background:#E4F0E3; color:#4A7048; }
-.diffHidden { opacity:0; pointer-events:none; }
+.diffUp { font-size:11px; font-weight:800; color:#C96A3A; }
+.diffDown { font-size:11px; font-weight:800; color:#4A7048; }
 
 /* Who spent */
 .whoCard { margin:12px 24px 0; background:var(--card); border-radius:18px; padding:16px; box-shadow:0 2px 12px var(--shadow); animation:fadeUp 0.4s 0.1s ease both; }

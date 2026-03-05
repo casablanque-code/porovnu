@@ -190,13 +190,15 @@ export default function HistoryPage() {
         {/* Summary cards */}
         <div className={styles.summaryRow}>
           <div className={styles.summaryCard}>
-            <div className={styles.summaryVal}>₽{Math.round(totalSpent).toLocaleString('ru')}</div>
+            <div className={styles.summaryValRow}>
+              <div className={styles.summaryVal}>₽{Math.round(totalSpent).toLocaleString('ru')}</div>
+              {diff !== null && (
+                <span className={diff>0 ? styles.diffUp : styles.diffDown}>
+                  {diff>0?'↑':'↓'}{Math.abs(diff)}%
+                </span>
+              )}
+            </div>
             <div className={styles.summaryLabel}>потрачено вместе</div>
-            {diff !== null && (
-              <div className={`${styles.diffBadge} ${diff>0?styles.diffUp:styles.diffDown}`}>
-                {diff>0?'↑':'↓'} {Math.abs(diff)}% vs прошлый
-              </div>
-            )}
           </div>
           {pairMode === 'split' ? (
             <div className={styles.summaryCard}>
@@ -307,25 +309,6 @@ export default function HistoryPage() {
           </div>
         )}
 
-        {/* Comparison */}
-        {prevTotal > 0 && (
-          <div className={styles.compSection}>
-            <div className={styles.sectionTitle}>Сравнение с прошлым периодом</div>
-            <div className={styles.compRow}>
-              <div className={styles.compItem}>
-                <div className={styles.compLabel}>Сейчас</div>
-                <div className={styles.compVal}>₽{Math.round(totalSpent).toLocaleString('ru')}</div>
-              </div>
-              <div className={`${styles.compArrow} ${diff>0?styles.compUp:styles.compDown}`}>
-                {diff===0?'=':diff>0?`↑${diff}%`:`↓${Math.abs(diff)}%`}
-              </div>
-              <div className={styles.compItem}>
-                <div className={styles.compLabel}>Прошлый</div>
-                <div className={styles.compVal}>₽{Math.round(prevTotal).toLocaleString('ru')}</div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   )

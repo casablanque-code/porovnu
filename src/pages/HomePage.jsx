@@ -230,7 +230,7 @@ export default function HomePage() {
                 )}
               </div>
             )}
-            <button className={styles.settingsBtn} onClick={() => navigate('/settings')} title="Настройки"><Settings size={20} strokeWidth={1.75} /></button>
+            <button className={styles.settingsBtn} onClick={() => navigate('/settings')} title="Настройки"><Settings size={26} strokeWidth={1.75} color="var(--brown-light)"/></button>
           </div>
         </div>
 
